@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 function Form(props) {
-  console.log(props)
+  //console.log(props)
   const [name, setName] = useState('');
 
   function handleSubmit(e) {
