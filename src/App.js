@@ -5,8 +5,8 @@ import List from './components/List';
 //import Animala from './components/Animals';
 
 function App() {
-  const key = 'ZEWjRc5xybl8QtBNgfb7KeLMlxKDJQl5C9owWvxgDeYymORjJ3';
-  const secret = 'rHPHoqH0S9KGHnU8GRZ4pCA01nEqOyv1cTpSBWMR';
+  const key = 'your_key';
+  const secret = 'your_secret';
   //const baseURL = 'api.petfinder.com/v2';
   let urlAuth = "https://api.petfinder.com/v2/oauth2/token";
 
