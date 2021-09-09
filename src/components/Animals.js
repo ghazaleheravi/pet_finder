@@ -1,18 +1,18 @@
 import React from 'react';
 
-function Animals(props) {
-  console.log(props);
-
+function Animals({ id }) {
+  console.log(id);
+  console.log('test');
   return (
     <>
       <dt>name</dt>
-      <dd>{props.name}</dd>
+      <dd>name</dd>
       <dt>gender</dt>
-      <dd>{props.gender}</dd>
+      <dd>gender</dd>
       <dt>age</dt>
-      <dd>{props.age}</dd>
+      <dd>age</dd>
       <dt>location</dt>
-      <dd>{props.location}</dd>
+      <dd>location</dd>
     </>
   );
 }

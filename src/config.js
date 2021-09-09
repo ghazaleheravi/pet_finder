@@ -1,0 +1,4 @@
+var config = {
+  MY_KEY : 'ZEWjRc5xybl8QtBNgfb7KeLMlxKDJQl5C9owWvxgDeYymORjJ3',
+  SECRET_KEY : 'rHPHoqH0S9KGHnU8GRZ4pCA01nEqOyv1cTpSBWMR'
+}

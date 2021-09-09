@@ -2,12 +2,15 @@ import './App.css';
 import React, { useEffect, useState } from 'react';
 import Form from './components/Form';
 import List from './components/List';
-//import Animala from './components/Animals';
+import Display from './components/Display';
+import { makeStyles } from '@material-ui/core/styles';
+import Modal from '@material-ui/core/Modal';
+
 
 function App() {
-  const key = 'ZEWjRc5xybl8QtBNgfb7KeLMlxKDJQl5C9owWvxgDeYymORjJ3';
-  const secret = 'rHPHoqH0S9KGHnU8GRZ4pCA01nEqOyv1cTpSBWMR';
-  //const baseURL = 'api.petfinder.com/v2';
+  const key = 'YOUR_KEY';
+  const secret = 'YOUR_SECRET';
+  
   let urlAuth = "https://api.petfinder.com/v2/oauth2/token";
 
   const [data, setData] = useState([]);
@@ -27,7 +30,6 @@ function App() {
         return response.json();
       })
       .then(function(data) {
-        //console.log(data);
         return fetch('https://api.petfinder.com/v2/animals?status=' + status, {
           headers: {
             'Authorization': data.token_type + ' ' + data.access_token,
@@ -42,29 +44,96 @@ function App() {
         })
       })
     }, []);
-    
-    const listItems = data.map((animal) =>  
-      <List 
-        id = {animal.id}
-        key = {animal.id}
-        photos= {animal.photos}
-        gender= {animal.gender}
-        age= {animal.age}
-        name= {animal.name}
-        breeds = {animal.breeds.primary}
-        contact= {animal.contact}
-      />,
-    );
+
+    /*--------------------- fetching data is done ------------------------------*/
+
+  const [detail, setDetail] = useState({
+    species: null,
+    age: null,
+    gender: null,
+    breeds: null,
+    email: null,
+    id: null
+  }); 
+  console.log('detail:', detail);
+
+  const [open, setOpen] = React.useState(false);  
+  
+  const handleOpen = (e) => {
+    setOpen(true);  
+    setDetail({
+      species: e.target.dataset.species,   //or --> e.target.getAttribute('data-name')
+      age:  e.target.dataset.age,    // or --> e.target.attributes.getNamedItem('data-name').value
+      gender: e.target.dataset.gender,
+      breeds: e.target.dataset.breeds,
+      email: e.target.dataset.email,
+      id: e.target.dataset.id
+    });
+  };
+  
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const listItems = data.map((animal) =>  
+    <List 
+      id = {animal.id}
+      key = {animal.id}
+      photos= {animal.photos}
+      gender= {animal.gender}
+      age= {animal.age}
+      species= {animal.species}
+      breeds = {animal.breeds.primary}
+      contact= {animal.contact['email']}
+      onToggle= {handleOpen}
+    />,
+  );
+
+  function getModalStyle() {
+    const top = 50 ;
+    const left = 50 ;
+    return {
+      top: `${top}%`,
+      left: `${left}%`,
+      transform: `translate(-${top}%, -${left}%)`,
+    };
+  }
+  
+  const useStyles = makeStyles((theme) => ({
+    paper: {
+      position: 'absolute',
+      width: 400,
+      backgroundColor: theme.palette.background.paper,
+      border: '2px solid #000',
+      boxShadow: theme.shadows[5],
+      padding: theme.spacing(2, 4, 3),
+    },
+  }));
+
+  const classes = useStyles();
+  const [modalStyle] = React.useState(getModalStyle);
+
+  const body = (
+    <div style={modalStyle} className={classes.paper}>
+      <Display data={detail} />
+    </div>
+  );
 
   return (
     <div>
       <Form data={data} />
       <hr className="linebreaker" />
-      <section className="section">
-      {listItems}
+      <section className="bigDisplay">
+        {listItems}
       </section>
+      <Modal
+        open={open}
+        onClose={handleClose}
+      >
+        {body}
+      </Modal>
     </div>
   );
 }
 
-export default App;
+export default App; 
