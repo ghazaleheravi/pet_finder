@@ -8,8 +8,9 @@ import Modal from '@material-ui/core/Modal';
 
 
 function App() {
-  const key = 'YOUR_KEY';
-  const secret = 'YOUR_SECRET';
+  const key = 'ZEWjRc5xybl8QtBNgfb7KeLMlxKDJQl5C9owWvxgDeYymORjJ3';
+  const secret = 'rHPHoqH0S9KGHnU8GRZ4pCA01nEqOyv1cTpSBWMR';
+
   
   let urlAuth = "https://api.petfinder.com/v2/oauth2/token";
 
@@ -55,7 +56,7 @@ function App() {
     email: null,
     id: null
   }); 
-  console.log('detail:', detail);
+  //console.log('detail:', detail);
 
   const [open, setOpen] = React.useState(false);  
   
@@ -74,6 +75,18 @@ function App() {
   const handleClose = () => {
     setOpen(false);
   };
+
+  
+  var filteredData = function(input) {
+    let myInput = input.toLowerCase();
+    var reducer = data.reduce((acc, cur) => {
+      if((cur.species.toLowerCase() === myInput) || (cur.breeds.primary.toLowerCase() === myInput)) {  
+        acc.push(cur);
+      }
+      return acc;
+    }, []);
+    return (reducer.length !== 0 ? reducer : 'Nothing found');
+  }
 
   const listItems = data.map((animal) =>  
     <List 
@@ -121,7 +134,7 @@ function App() {
 
   return (
     <div>
-      <Form data={data} />
+      <Form data={data} filteredData={filteredData}/>
       <hr className="linebreaker" />
       <section className="bigDisplay">
         {listItems}

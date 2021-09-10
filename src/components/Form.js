@@ -1,27 +1,30 @@
 import React, { useState } from 'react';
 
 function Form(props) {
-  //console.log(props)
-  const [name, setName] = useState('');
-
+  console.log(props)
+  const [input, setInput] = useState('');
+ // console.log('input:', input);
+  //console.log(typeof input);
   function handleSubmit(e) {
-    console.log('typing');
+    //console.log('submitted');
     e.preventDefault();
   }
 
-  function handleChange(e) {
-    setName(e.target.value);
+  function handleSearch(e) {
+    //console.log('typing')
+    setInput(e.target.value);
+    props.filteredData(e.target.value);
   }
 
   return (
     <>
       <form className="form" onSubmit={handleSubmit}>
         <input 
-          htmlFor="name" 
+          htmlFor="input" 
           type="text" 
           className="searchBox"
-          value={name}
-          onChange={handleChange}
+          value={input}
+          onChange={handleSearch}
         />
         <button className="btn">Search</button>
       </form>
