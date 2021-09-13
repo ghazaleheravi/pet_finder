@@ -1,3 +1,4 @@
+import { RestoreOutlined } from '@material-ui/icons';
 import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -75,5 +76,59 @@ export default function Test() {
 
 */
 
+/*
+function Form(props) {
+  const [input, setInput] = useState('');
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    setInput('');
+  }
+
+  function handleChange(e) {
+    setInput(e.target.value);
+    props.filterData(e.target.value);
+  }
+
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input 
+          htmlFor="input"
+          type="text"
+          value={input}
+          onChange={handleChange}
+        />
+        <button>search</button>
+      </form>
+    </div>
+  );
+}
+
+
+
+const DATA = ['facebook','google','amazon','microsoft'];
+
+function Test1() {
+  const [search, setSearch] = useState(null);
+  console.log('search:', search);
+  
+  var filterData = function(input) {
+    DATA.reduce((acc, cur) => {
+      if (input === cur) {
+        setSearch(input);
+        acc.push(input);
+      } 
+      return acc;
+    }, []);
+  }
+
+  return (
+    <>
+      <Form filterData={filterData} />
+      {search}
+    </>
+  );
+}  */
 
 ReactDOM.render(<App />, document.getElementById('root'));

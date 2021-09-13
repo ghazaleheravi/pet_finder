@@ -14,6 +14,7 @@ function App() {
   
   let urlAuth = "https://api.petfinder.com/v2/oauth2/token";
 
+  
   const [data, setData] = useState([]);
   console.log('data:', data);
 
@@ -56,8 +57,8 @@ function App() {
     email: null,
     id: null
   }); 
-  //console.log('detail:', detail);
-
+  
+  /*-------------------------------popOvering handlers---------------------------------------*/
   const [open, setOpen] = React.useState(false);  
   
   const handleOpen = (e) => {
@@ -75,20 +76,8 @@ function App() {
   const handleClose = () => {
     setOpen(false);
   };
-
-  
-  var filteredData = function(input) {
-    let myInput = input.toLowerCase();
-    var reducer = data.reduce((acc, cur) => {
-      if((cur.species.toLowerCase() === myInput) || (cur.breeds.primary.toLowerCase() === myInput)) {  
-        acc.push(cur);
-      }
-      return acc;
-    }, []);
-    return (reducer.length !== 0 ? reducer : 'Nothing found');
-  }
-
-  const listItems = data.map((animal) =>  
+  /*-----------------------------------------------------------------------------------*/
+  var listItems = data.map((animal) =>  
     <List 
       id = {animal.id}
       key = {animal.id}
@@ -100,8 +89,24 @@ function App() {
       contact= {animal.contact['email']}
       onToggle= {handleOpen}
     />,
-  );
+  ); 
+ 
+  const [searchResult, setSearchResult] = useState(null);
+  console.log('search:', searchResult);
 
+  var filteredData = function(input) {
+    let myInput = input.toLowerCase();
+    var reducer = listItems.reduce((acc, cur) => {
+      if((cur.props.species.toLowerCase() === myInput) || (cur.props.breeds.toLowerCase() === myInput)) {  
+        acc.push(cur);
+      }
+      setSearchResult(acc);
+      return acc;
+    }, []);
+    return (reducer.length !== 0 ? reducer : 'Nothing found');
+  }
+
+    /*---------------------------using material_ui to get popOver--------------------------*/
   function getModalStyle() {
     const top = 50 ;
     const left = 50 ;
@@ -124,20 +129,21 @@ function App() {
   }));
 
   const classes = useStyles();
-  const [modalStyle] = React.useState(getModalStyle);
+  const [modalStyle] = useState(getModalStyle);
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
       <Display data={detail} />
     </div>
   );
+     /*------------------------------------------------------------------------------*/
 
   return (
     <div>
       <Form data={data} filteredData={filteredData}/>
       <hr className="linebreaker" />
       <section className="bigDisplay">
-        {listItems}
+        {(searchResult !== null) ? searchResult : listItems}
       </section>
       <Modal
         open={open}

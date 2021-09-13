@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 function Form(props) {
-  console.log(props)
+  //console.log(props)
   const [input, setInput] = useState('');
  // console.log('input:', input);
   //console.log(typeof input);
