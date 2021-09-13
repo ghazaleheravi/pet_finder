@@ -5,16 +5,16 @@ import List from './components/List';
 import Display from './components/Display';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
 
 
 function App() {
-  const key = 'YOUR_KEY';
-  const secret = 'YOUR_SECRET';
-
+  /*--------------------------fetching data from rest API---------------------------*/
+  const key = 'ZEWjRc5xybl8QtBNgfb7KeLMlxKDJQl5C9owWvxgDeYymORjJ3';
+  const secret = 'rHPHoqH0S9KGHnU8GRZ4pCA01nEqOyv1cTpSBWMR';
   
   let urlAuth = "https://api.petfinder.com/v2/oauth2/token";
 
-  
   const [data, setData] = useState([]);
   console.log('data:', data);
 
@@ -47,8 +47,8 @@ function App() {
       })
     }, []);
 
-    /*--------------------- fetching data is done ------------------------------*/
-
+  /*-----------------------popOvering handlers/Material-UI--------------------------------*/
+  
   const [detail, setDetail] = useState({
     species: null,
     age: null,
@@ -58,7 +58,6 @@ function App() {
     id: null
   }); 
   
-  /*-------------------------------popOvering handlers---------------------------------------*/
   const [open, setOpen] = React.useState(false);  
   
   const handleOpen = (e) => {
@@ -92,18 +91,22 @@ function App() {
   ); 
  
   const [searchResult, setSearchResult] = useState(null);
-  console.log('search:', searchResult);
-
+  //console.log('search:', searchResult);
+  
   var filteredData = function(input) {
     let myInput = input.toLowerCase();
-    var reducer = listItems.reduce((acc, cur) => {
+    let reducer = listItems.reduce((acc, cur) => {
       if((cur.props.species.toLowerCase() === myInput) || (cur.props.breeds.toLowerCase() === myInput)) {  
         acc.push(cur);
       }
-      setSearchResult(acc);
       return acc;
     }, []);
-    return (reducer.length !== 0 ? reducer : 'Nothing found');
+    console.log(reducer.length);
+    if (reducer.length === 0) {
+      setSearchResult('Nothing found!');
+    } else {
+      setSearchResult(reducer);
+    }
   }
 
     /*---------------------------using material_ui to get popOver--------------------------*/
@@ -120,7 +123,7 @@ function App() {
   const useStyles = makeStyles((theme) => ({
     paper: {
       position: 'absolute',
-      width: 400,
+      width: 500,
       backgroundColor: theme.palette.background.paper,
       border: '2px solid #000',
       boxShadow: theme.shadows[5],
@@ -148,8 +151,14 @@ function App() {
       <Modal
         open={open}
         onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 1000,
+        }}
       >
-        {body}
+       
+      {body}
       </Modal>
     </div>
   );

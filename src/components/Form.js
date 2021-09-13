@@ -5,6 +5,7 @@ function Form(props) {
   const [input, setInput] = useState('');    //or query
   function handleSubmit(e) {
     e.preventDefault();
+    setInput('');
   }
 
   function handleSearch(e) {
