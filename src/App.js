@@ -8,8 +8,8 @@ import Modal from '@material-ui/core/Modal';
 
 
 function App() {
-  const key = 'ZEWjRc5xybl8QtBNgfb7KeLMlxKDJQl5C9owWvxgDeYymORjJ3';
-  const secret = 'rHPHoqH0S9KGHnU8GRZ4pCA01nEqOyv1cTpSBWMR';
+  const key = 'YOUR_KEY';
+  const secret = 'YOUR_SECRET';
 
   
   let urlAuth = "https://api.petfinder.com/v2/oauth2/token";
