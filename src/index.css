@@ -8,8 +8,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   font-size: 24px;
-  border: 2px solid purple;
+  position: fixed;
   position: relative;
+  background: url(./images/back3.jpg) no-repeat center center fixed;
+  background-size: cover;
+ 
 }
 
 code {
@@ -19,25 +22,46 @@ code {
 
 .form {
   margin-bottom: 70px;
+  position: absolute;
+  top: 20px;
+  right: 50px;
+}
+
+.header {
+  position: absolute;
+  top: 5px;
+  left:50px;
 }
 
 .searchBox {
   padding-right: 50px;
-  border-radius: 5px;
+  border-radius: 3px;
   display: inline-block;
   margin-right: 5px;
+  border: 2px solid red;
 }
 
 .btn {
-  border-radius: 5px;
+  border-radius: 3px;
+  border: 2px solid red ;
 }
 
 .linebreaker {
-  border: 1px dashed greenyellow;
+  border: 1px dashed white;
 }
 
 .list {
   list-style-type: none;
+  display: inline-block;
   
+}
+
+.mylist {
+  border: 1px solid yellow;
+}
+
+.img {
+  width: 200px;
+  height: 200px;
 }
 

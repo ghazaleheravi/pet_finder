@@ -10,8 +10,8 @@ import Backdrop from '@material-ui/core/Backdrop';
 
 function App() {
   /*--------------------------fetching data from rest API---------------------------*/
-  const key = 'ZEWjRc5xybl8QtBNgfb7KeLMlxKDJQl5C9owWvxgDeYymORjJ3';
-  const secret = 'rHPHoqH0S9KGHnU8GRZ4pCA01nEqOyv1cTpSBWMR';
+  const key = 'YOUR_KEY';
+  const secret = 'YOUR_SECRET';
   
   let urlAuth = "https://api.petfinder.com/v2/oauth2/token";
 
@@ -55,20 +55,25 @@ function App() {
     gender: null,
     breeds: null,
     email: null,
+    city: null,
     id: null
   }); 
   
   const [open, setOpen] = React.useState(false);  
   
   const handleOpen = (e) => {
-    setOpen(true);  
+    setOpen(true); 
+    /*e.target refers to the element that triggered the event (i.e. the element the user clicked on).
+    e.currentTarget refers to the element that the event listener is attached to.
+    In our case, e.currentTarget will always return the #parent element, but e.target will return whatever element the user directly interacted with. */
     setDetail({
-      species: e.target.dataset.species,   //or --> e.target.getAttribute('data-name')
-      age:  e.target.dataset.age,    // or --> e.target.attributes.getNamedItem('data-name').value
-      gender: e.target.dataset.gender,
-      breeds: e.target.dataset.breeds,
-      email: e.target.dataset.email,
-      id: e.target.dataset.id
+      species: e.currentTarget.dataset.species,   //or --> e.target.getAttribute('data-name')
+      age:  e.currentTarget.dataset.age,    // or --> e.target.attributes.getNamedItem('data-name').value
+      gender: e.currentTarget.dataset.gender,
+      breeds: e.currentTarget.dataset.breeds,
+      email: e.currentTarget.dataset.email,
+      city: e.currentTarget.dataset.city,
+      id: e.currentTarget.dataset.id
     });
   };
   
@@ -85,13 +90,14 @@ function App() {
       age= {animal.age}
       species= {animal.species}
       breeds = {animal.breeds.primary}
-      contact= {animal.contact['email']}
+      email= {animal.contact.email}
+      city= {animal.contact.address.city}
+      description= {animal.description}
       onToggle= {handleOpen}
     />,
   ); 
  
   const [searchResult, setSearchResult] = useState(null);
-  //console.log('search:', searchResult);
   
   var filteredData = function(input) {
     let myInput = input.toLowerCase();
@@ -101,7 +107,6 @@ function App() {
       }
       return acc;
     }, []);
-    console.log(reducer.length);
     if (reducer.length === 0) {
       setSearchResult('Nothing found!');
     } else {
@@ -125,7 +130,7 @@ function App() {
       position: 'absolute',
       width: 500,
       backgroundColor: theme.palette.background.paper,
-      border: '2px solid #000',
+      border: '2px solid yellow',
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
     },
@@ -143,6 +148,7 @@ function App() {
 
   return (
     <div>
+      <p className="header">Click on each picture to see more information 🧐</p>
       <Form data={data} filteredData={filteredData}/>
       <hr className="linebreaker" />
       <section className="bigDisplay">
@@ -154,11 +160,10 @@ function App() {
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
-          timeout: 1000,
+          timeout: 500,
         }}
       >
-       
-      {body}
+        {body}
       </Modal>
     </div>
   );

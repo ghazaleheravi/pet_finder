@@ -23,6 +23,7 @@ function Form(props) {
           className="searchBox"
           value={input}
           onChange={handleSearch}
+          placeholder='Searching Animal or Breed'
         />
         <button className="btn">Search</button>
       </form>

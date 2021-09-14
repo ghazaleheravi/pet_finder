@@ -22,6 +22,10 @@ function Display(props) {
         <td>email:</td>
         <td>{props.data.email}</td>
       </tr>
+      <tr>
+        <td>city:</td>
+        <td>{props.data.city}</td>
+      </tr>
       </table>
     </>
   );
