@@ -8,7 +8,6 @@ function Form({ filteredData }) {
     e.preventDefault();
     setInput('');
   }
-
   function handleSearch(e) {
     setInput(e.target.value);
     filteredData(e.target.value);
