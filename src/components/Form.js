@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
-function Form(props) {
- 
+function Form({ filteredData }) {
+  
   const [input, setInput] = useState('');    //or query
   function handleSubmit(e) {
     e.preventDefault();
@@ -9,9 +10,8 @@ function Form(props) {
   }
 
   function handleSearch(e) {
-    //console.log('typing')
     setInput(e.target.value);
-    props.filteredData(e.target.value);
+    filteredData(e.target.value);
   }
 
   return (
@@ -30,5 +30,9 @@ function Form(props) {
     </>
   );
 } 
+
+Form.propTypes = {
+  filteredData: PropTypes.function
+};
 
 export default Form;

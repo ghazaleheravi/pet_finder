@@ -10,8 +10,8 @@ import Backdrop from '@material-ui/core/Backdrop';
 
 function App() {
   /*--------------------------fetching data from rest API---------------------------*/
-  const key = 'YOUR_KEY';
-  const secret = 'YOUR_SECRET';
+  const key = 'ZEWjRc5xybl8QtBNgfb7KeLMlxKDJQl5C9owWvxgDeYymORjJ3';
+  const secret = 'rHPHoqH0S9KGHnU8GRZ4pCA01nEqOyv1cTpSBWMR';
   
   let urlAuth = "https://api.petfinder.com/v2/oauth2/token";
 
@@ -43,8 +43,8 @@ function App() {
             setData(json.animals);
         }).catch(function(err) {
             console.log('somthing went wrong', err.name);
-        })
-      })
+        });
+      });
     }, []);
 
   /*-----------------------popOvering handlers/Material-UI--------------------------------*/
@@ -58,7 +58,6 @@ function App() {
     city: null,
     id: null
   }); 
-  
   const [open, setOpen] = React.useState(false);  
   
   const handleOpen = (e) => {
@@ -92,7 +91,7 @@ function App() {
       breeds = {animal.breeds.primary}
       email= {animal.contact.email}
       city= {animal.contact.address.city}
-      description= {animal.description}
+      //description= {animal.description}
       onToggle= {handleOpen}
     />,
   ); 
@@ -112,7 +111,7 @@ function App() {
     } else {
       setSearchResult(reducer);
     }
-  }
+  };
 
     /*---------------------------using material_ui to get popOver--------------------------*/
   function getModalStyle() {
@@ -149,7 +148,7 @@ function App() {
   return (
     <div>
       <p className="header">Click on each picture to see more information 🧐</p>
-      <Form data={data} filteredData={filteredData}/>
+      <Form filteredData={filteredData}/>
       <hr className="linebreaker" />
       <section className="bigDisplay">
         {(searchResult !== null) ? searchResult : listItems}

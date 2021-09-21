@@ -1,28 +1,49 @@
 import React from 'react';
-import dog from '../dog.jpg';
-import Display from './Display';
+import PropTypes from 'prop-types';
 
-function List(props) {
-  //console.log('listprops:', props);
+function List({
+  id,
+  photos,
+  gender,
+  age,
+  species,
+  breeds,
+  email,
+  city,
+  onToggle
+  }) {
+  
   return (
     <> 
       <ul className="list">
         <li 
           className="mylist" 
-          onClick={props.onToggle} 
-          data-id={props.id} 
-          data-gender={props.gender} 
-          data-age={props.age} 
-          data-species={props.species} 
-          data-breeds={props.breeds}
-          data-email={props.email}
-          data-city={props.city}
+          onClick={onToggle} 
+          data-id={id} 
+          data-gender={gender} 
+          data-age={age} 
+          data-species={species} 
+          data-breeds={breeds}
+          data-email={email}
+          data-city={city}
         >
-          {props.photos.length !== 0 ? <img className="img" src={props.photos[0]['small']} /> : 'click to see the information'}
+          {photos.length !== 0 ? <img className="img" src={photos[0]['small']} alt="animal" /> : 'Can I be one of your family member?🐶🐱'}
         </li>
       </ul>
     </>
   );
 }
+
+List.propTypes = {
+  id: PropTypes.number,
+  gender: PropTypes.string,
+  age: PropTypes.string,
+  species: PropTypes.string,
+  breeds: PropTypes.string,
+  email: PropTypes.string,
+  city: PropTypes.string,
+  onToggle: PropTypes.function,
+  photos: PropTypes.array
+};
 
 export default List;
